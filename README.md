@@ -10,3 +10,4 @@ A flexible PHP model class that's very easy to adapt to different databases and 
 ## Usage:
 * Constructed using an existing PDO
 * Depending on the usage you usually just have to pass in an array of the values you want to save or update and the table name.
+* More documentation can be found in the php file
