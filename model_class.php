@@ -7,7 +7,7 @@
 class jensenModel {
     private $pdo;
     private $mysqlSelectAll = "SELECT * FROM ";
-    private $tableNameTable = 'events';
+    private $tableNameTable = 'tableName';
     public $tableNameFields;
 
     public function __construct(PDO $pdo) {
