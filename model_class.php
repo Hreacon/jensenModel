@@ -1,7 +1,8 @@
 <?php
 
-// VERSION 1.1
-// 1.1 - Added convertFileArray funciton.
+// VERSION 1.1.1
+// 1.1 - Added convertFileArray function.
+// 1.1.1 - Add getListFromTableWhereColumn
 // Written by:
 // Nicholas Jensen
 
