@@ -70,6 +70,12 @@ class jensenModel {
         $result = $this->selectQuery($this->mysqlSelectAll . $table. " WHERE id = $id");
         return $result;
     }
+    
+    public function getListFromTableWhereColumn($table, $column, $value) {
+      $column = $this->checkInput($column);
+      $value = $this->checkInput($value);
+      return $this->selectQuery($this->mysqlSelectAll . $table. " WHERE $column = $value");
+    }
 
     public function search($table, $field, $term) {
         $table = $this->checkInput($table);
