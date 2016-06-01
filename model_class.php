@@ -1,18 +1,16 @@
 <?php
 
-// VERSION 1.0
+// VERSION 1.1
+// 1.1 - Added convertFileArray funciton.
 // Written by:
 // Nicholas Jensen
 
 class jensenModel {
     private $pdo;
     private $mysqlSelectAll = "SELECT * FROM ";
-    private $tableNameTable = 'tableName';
-    public $tableNameFields;
 
     public function __construct(PDO $pdo) {
         $this->pdo = $pdo;
-        $this->tableNameFields = // An array of the fields in the table
     }
 
     private function escapeInput($input) {
@@ -48,6 +46,7 @@ class jensenModel {
     }
 
     public function preparedQuery($query, $values = '') {
+        //var_dump($query);
         $stmt = $this->pdo->prepare($query);
         if(is_array($values))
             $output = $stmt->execute($values);
@@ -143,7 +142,7 @@ class jensenModel {
 
     // this function takes an array of values and an array of column names in the same order
     public function makeInfo($keys, $values) {
-        $info;
+        $info = [];
         $index = 0;
         if(is_array($values)) {
             foreach($values as $value) {
@@ -154,11 +153,23 @@ class jensenModel {
         return $info;
     }
     public function deleteFromTableWithId($table, $id) {
-        $sql = "DELETE FROM " . $this->escapeInput($table) . " WHERE id = :id";
-        $info = $this->makeInfo('id', $id);
-        return $this->preparedQuery($sql, $info);
+        $sql = "DELETE FROM " . $this->checkInput($table) . " WHERE id = ?";
+        return $this->preparedQuery($sql, [$id]);
+    }
+
+    // converts the files array of
+    // name-0,1 tmp-0,1
+    //to 0-name,tmp 1-name, tmp
+    function convertFilesArray($files) {
+      $output = [];
+      for($i=0;$i<count($files['name']);$i++){ // loop through files
+        while($file = current($files)) { // loop through array indicies
+          $output[$i][key($files)] = $file[$i];
+          next($files);
+        }
+      }
+      return $output;
     }
 } // end class jensenModel
-
 
 ?>
